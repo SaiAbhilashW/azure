@@ -1,0 +1,35 @@
+Understanding Datacentres and Regions
+
+Regions - geographical areas having one or more datacenters
+		- datacentres are networked together over low latency network
+
+	- US DoD Central, US Gov Virginia, US Gov Iowa 
+		- physically and logically isolated regions
+		- For US govt agencies and partners
+
+Availability Zones - Physically seperated datacenters within azure an region
+				   - has one or more datacenters with independent setups
+				   - Good to have 3 availability zones for resiliency
+				   - for mission critical apps needing high availability
+				   - app clones all its resources, data and stores in another datacenter
+
+Region Pair - two regions in same geography (like East US, West US) 
+			- entire setup replicated 
+			- relaible service & redunduncy of data
+			- helps in planned updates, when one region works other is updating
+
+SLA - Performance, Uptime guarantees, Credits on failure to meet performance and availability guarantees 
+	- for downtime SLA*365 days 
+	- no SLA for free or shared products/services
+	- Single VM instance - premium storage - 99.9% SLA
+	- VMs with two or more instances in same availability set - 99.95% SLA
+	- VMs with two or more instances deployed across two or more availability zones - 99.99% SLA
+	e.g 
+						--- SQL Db (99.99)
+	(99.95) Web App ---|
+						--- Queue (99.9)
+
+	% possibility both Sql db and queue fail = 1 - (0.01/100 * 0.1/100) = 99.99999 percent
+	combined SLA => 99.95 * 99.99999 ~ 99.95
+
+Resiliency - Ability of app to recover from failures and continue to function

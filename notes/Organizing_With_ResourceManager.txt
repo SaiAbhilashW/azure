@@ -1,0 +1,32 @@
+Resource Groups
+
+A resource must have one and only one resource group.
+Ways of organizing in resource groups :
+- Logical : similar resource in a group
+- Lifecycle : usually in non-production envs where you are experimenting and clean up everything after practice
+- Authorisation : apply RBAC to all resources in the group
+- Billing
+
+Ways of creating resource group => portal, powershell, Azure CLI, SDKs
+
+----------------------------------------------------------------------------------------------------------------
+
+Tags
+
+- key value pairs of text data which can be attached to resource or resource group
+- allow you to associate custom details about the resource/groups
+- a resource can have many tags (upto 50)
+- tags applied to resource group are not inherited to resources in it
+- uses : billing a resource group together
+	   : monitoring rgs, 
+	   : easy retrival of resources based on similar tags
+	   : automation, switch off rgs having a particular tag during off hours
+
+----------------------------------------------------------------------------------------------------------------
+
+Resource Locks
+
+- Applied to any rg, resource or subscriptions
+- inherited among the contained resources
+- Two types : Delete - allows read and modifying the resource, cannot be deleted
+			: Read-Only - doesn't allow modification and deletion

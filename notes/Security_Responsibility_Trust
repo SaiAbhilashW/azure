@@ -1,0 +1,57 @@
+Protect Your Network
+
+- Layered approach
+
+	- Internet facing resources
+		- allow inbound and outbound traffic only when neccesary
+		- Azure Security Center identifies internet facing resources without security groups
+		  or those which are not behind the firewall.
+
+	Firewall - Allows server access to only a selected range of IP addresses defined by you
+		-	Azure Firewall - Firewall as a service by azure, inbound protection for Remote Desktop
+			Protocol, File Transfer Protocol and Secure Shell
+		-	Azure Application gateway - load balancer includes Web App Firewall, for HTTP traffic
+
+	Network Virtual appliances - ideal for non HTTP services
+
+
+- Stopping Distributed Denial of Service Attacks
+	These attacks attempt to overwhelm a resource by sending too many requests
+	- Azure DDoS protection identifies the attacker and blocks him while letting customers access the service
+
+- Controlling traffic inside the VNet
+	- Network Security Gropus => Allow us to control traffic between azure resources in the vnet
+	- ExpressRoute - establish VPN connection between with azure and your on premise network
+
+
+----------------------------------------------------------------------------------------------------------------
+
+Protecting shared documents
+
+Microsoft Azure Information Protect (AIP) - classifying and protecting documents and emails by applying labels
+	- e.g. When user saves .doc file having confidential data like credit card number, a custom tooltip configured by
+		   the admin is displayed saying that file be labeled as confidential
+
+----------------------------------------------------------------------------------------------------------------
+
+Azure Advanced Threat Protection (ATP)
+
+Helps identify and investigating advanced threats
+Components of ATP :
+	- ATP Portal - monitor and respond to suspicious activities
+	- ATP Sensors - Installed directly on domain controllers, monitor traffic
+	- ATP Cloud Service
+
+----------------------------------------------------------------------------------------------------------------
+
+Understanding Security considerations for Application Lifecycle Mgmt
+
+- Provide training => everyone must know how to build security into software
+- Define security requirement into the initial planning stages of product development
+- Define metrics and threshhold for security requirements to be met during production
+- Define and use cryptography standards
+- Manage security risks from using third-party components and use approved tools
+- Static Analysis Security Testing - compile time verification of code
+- Dynamic Analysis Security Testing - runtime verification
+- Perform penetration testing - Simuating actions of a hacker on the app
+- Establish a standard incident response process

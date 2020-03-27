@@ -1,0 +1,75 @@
+
+Factors affecting cost
+
+- Resource Type 
+	- Many billing meters can be attached to a single resource which determine what you'll pay
+
+- Services
+	- Azure usage rates and billing periods can differ between Enterprise, Web Direct, and Cloud Solution Provider (CSP) customers
+
+- Location
+	- Some loactions are cheaper than other but you should consider the cost to move data there while making the decision
+
+- Azure Billing Zones
+	- Billing zones are created to bill based on the amount of data going out of the datacenters. Incoming data is free.
+	- 1 = United States, US Government, Europe, Canada, UK, France, Switzerland
+	  2 = East Asia, Southeast Asia, Japan, Australia, India, Korea
+	  3 = Brazil, South Africa, UAE
+	  4 = DE Zone 1 = Germany
+
+- Billed as pay-for-what-you-use
+- Metrics(meters) used for tracking usage :
+	- Compute Hours
+	- IP Address Hours
+	- Data Transfer In
+	- Data Transfer Out
+	- Standard Managed Disk
+	- Standard Managed Disk Operations
+	- Standard IO-Disk
+	- Standard IO-Block Blob Read
+	- Standard IO-Block Blob Write
+	- Standard IO-Block Blob Delete
+
+- Deallocating a VM != deleting a VM - Deallocating is similar to turning off a computer, you won't be charged for computing, data transfers etc, but you'd be charged for storage space.
+- Billing happens monthly
+
+----------------------------------------------------------------------------------------------------------------
+
+Azure Pricing Calculator
+
+Tabs : Product - has all the products such as vms, db instances, app gateways, etc
+			   - Gives the estimate of what the cost will be
+	   Estimate - configure details of each resource to give a more solid estimate
+	   Examples - examples of infra generally used
+	   FAQ - faqs
+
+----------------------------------------------------------------------------------------------------------------
+
+Azure Advisor 
+
+- Free service 
+- Some reccomendations are - Right-size or delete underutilized vms, buy vms in advanced, eliminate unprovisioned expressRoute ckts
+- based on high availability, security, cost, operatinal excellence, etc
+
+----------------------------------------------------------------------------------------------------------------
+
+Azure Cost Management
+
+- Free built in
+- Shows charts about where the money is going, set budgets, reports and analysis
+
+Total Cost of Ownership (TCO) calculator
+
+- When migrating to cloud we look at TCO
+- Define workloads => servers, storage, databases, networking
+- Adjust assumptions => storage, labor, IT, electricity costs
+
+----------------------------------------------------------------------------------------------------------------
+
+Azure Credits
+
+- monthly credit to test out new features and solutions
+
+----------------------------------------------------------------------------------------------------------------
+
+- Updates page for new and upcoming products

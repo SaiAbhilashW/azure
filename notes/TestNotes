@@ -1,0 +1,228 @@
+Test notes
+
+- Azure Knowledge Center - Q&A to common quetions; FAQs; searchable online docs
+
+- no SLA for free plans
+		
+- Preview features can be enabled for the whole organisation by account manager
+
+- GA - General Availability = products which fully tested and evaluated and are made avaialble to customers as a part of azure
+	 - Opposite is Preview features which users test and give feedback
+
+- Free Subscription - accesible for 12 months, 200 dollar credit to be used in first 30 days
+
+- Linux less expensive than windows
+-  US GOV Virginia - only govt and govt contractors 
+- Availability Zones
+
+
+Support Plans
+
+1. Basic - Service Health personalized dashboard
+		 - Azure advisor recommendations
+		 - no technical support
+		 - Free
+
+2. Developer - For trial and non production envs
+			 - Access to support engineers during business hours via email
+			 - only Severity C cases - response time < 8 business hours
+			 - $29/month
+
+3. Standard - for production envs
+			- 24*7 access to support via business or phone
+			- Sev C <8 business hrs, Sev B <4 hrs, critical Sev A <1 hr
+			- $100/month
+
+4. Professional Direct - Sev C <4 hours, Sev B <2 hrs, SevA <1 hr
+					   - Architectural Guidance by ProDirect Delivery Manager
+					   - Web seminars
+					   - onboarding service, service reviews, Azure Advisor consultation
+					   - $1000/month
+
+5. Premier - support time same as professional direct, for Sev A - 15 mins when done using Azure Rapid response
+		   - web seminars and on demand training
+		   - Designated Technical account manager
+		   - architectural review
+
+Application Insights - Allows developers to send telemetry data to azure. exposes an API so that developers can log data to azure
+
+Alerts - to receive emails when no of requests exceed 10000 an hour
+
+Resource Health - shows whether a vm is down or up. shows health issues for vms
+
+Metrics - tell how resource is performing and what it is comsuming
+
+GDPR - standards and regulations enforced by government agencies - European Union
+
+ISO and NIST are not enforced by govt agencies
+
+Azure DDoS is independent of Microsoft Threat Protection
+DDoS comes with 2 plans - basic : DDos automatically enabled, standard : gives addnal features - can be enabled
+
+VNets from multiple subscriptions across org can be attached to a single DDoS plan. This plan is attached and billed to a subscription which can't be moved to another subscription.
+
+IOT Hub - bidirectional
+IOt central - device to cloud , unidirectional
+
+
+Service Health - sends alert on exceed usage, planned mainatanance, custom alerts 	
+
+HDInsight - 
+
+Iot central / hub
+
+
+studio - drag and drop, inbuilt models, when deployed go to we services
+service - development exp needed, build custom algos
+
+
+Azure Resource Manager Templates and policies both need JSON for creation. can't be created using powershell
+
+* Azure Resource Manager
+
+Availability Sets - seperate deployements in same data center
+
+Containers - 
+
+AAD
+
+RBAC Roles
+
+
+Private cloud - only one tenant
+
+MFA Server - needed for on premise AD
+MFA Service - needed for cloud
+
+AZure ADConnect , ADFS - supporting auth between Azure AD and on premise AD
+
+Audit Reports
+
+Application gateway - 
+
+Traffic Manager - delivers internet traffic to datacenter geographically closest to user, uses DNS
+
+URL based routing to route web traffic to different instances
+
+distributes VM traffic evenly across multiple instances
+
+which service gives you first sign 
+
+login from proxy to Ad directory, which service 
+
+
+IOT Central - IOT service used to manage and monitor IOT devices at scale
+
+Azure AD Identity Protection - MultiFactor Auth (MFA)
+
+Azure Priviledged Identity Mgmt - Gives Just in time access to resources
+
+Azure ATP - uses sensors to monitor and prevent suspicious attacks
+
+Virtual Machine Blade - resource health shows vm health
+
+
+availibility zones vs availibility sets
+cool access tiers
+
+
+
+-----------------------------------------------
+
+ACI (Azure Container Instance) - simple app deployement
+							   - no orchestration support
+							   - no disk storage, only file storage
+
+AKS (Azure Kubrenetes Cluster) - Integrated with Azure Active Directory, existing Vnet, disk premium storage, app upgrades
+
+DevTestLabs - part of Azure DevOps
+			- used to provision windows and linux vms
+			- can provision envs based on Azure Resource Manager (ARM) templates
+			- rapid deployement of resources in minutes
+
+Application Gateway - url based routing and routing traffic to different vms 
+
+Service Bus Relay - web accessing on premise service through azure
+
+Azure Cloud Shell - runs powershell and Azure cli on web
+Azure Powershell - installable in windows, linux and mac
+
+Applying read only locks on rgs applies it on all resources also
+resources can interact with resources in other rgs
+resources can contain resources from any region (?)
+
+Load Balancer to distribute traffic to vms, one public ip address exposed, it distributes traffic to a pool of backend vms
+
+Web application Firewall - protects web servers from attacks and vulnerabilities
+
+Disk storage - only available to the vm to which disk is attached, no outside access
+
+disk storage is not supported by ACI Cluster Instances
+
+-----
+
+Management Groups - Let you organise multiple subscriptions into a single entity. Any rules on mgmt groups apply to all subs inside it
+
+In an organisation : 
+1 Azure Tenant - multiple mgmt groups - multiple subs - multiple rgs - mulitple resources
+* All subs inside a mgmt group must subscribe to the same azure tenant
+
+Advantages of Mgmt groups : 
+1. Apply a policy on a mgmt group saying any vm commisioned can be instantiated only in East_US region.
+   Policy will apply to all subs in that mgmt group and to all resources in those subs
+
+2. When user wants to access multiple subs : put those subs in a mgmt group and create on RBAC assignment giving the user access
+   Old way would have been creating RBAC for each subscription
+
+A single Azure account can create multiple subscription. Billing occurs at subscription level. So build as many subs as you want number of bills
+
+A resource can only belong to one subscription
+
+You can transfer your subscription from one AAD tenat to another. RBACs applied previously do not carry forward to the new tenant
+
+Cloud shell closes after 20 minutes of inactivity
+
+Event Grid - develop serverless functions and respond to events. Filters different events and passes them to functions.
+
+Event Hubs - supports big data pipelines.captures event stream and telemetry data. 
+
+Azure Service Bus - Works with messages. Used for high value enterprise messaging. financial transactions.
+
+Machine Learning Studio : 
+
+1. Drag and drop visual workspace to work with machine learning models. you can build test deploy
+2. publishes machine learning models as web services, so the models are accesible to others
+
+------
+
+Honeytoken activity :
+Account that you set up to be fake/ decoy account. If login is attempted from this account, it is malicious activity
+
+Account Enumeration reconnaissance : 
+Multiple failed auth attempts for users in an alphabetical order. Hacker has a list of user and is trying to guess the password
+
+Brute Force reconnaissance :
+Multiple auth attempts for a user. Hacker is trying to guess the password
+
+User and Group membership reconnaissance (SAMR) : attackers query domain to map directory structure of important accounts
+
+Identity Theft (pass-the-ticket) : attacker gains access to kerberos ticket on user's computer and uses it to gain access of other computers in the network
+
+Identity Theft(pass-the-hash): attacker gains access to NTLM hash of authed user and uses it to gain access to other computers in the network
+
+------
+
+Denial or allowing inbound http traffic only from some ip addresses into vms - Network security groups.
+
+Azure Firewall - create a rule which restricts network traffic across all subscriptions
+			   - filter traffic between different vnets and between azure and on premise deployement
+			   - also filters inside traffic, vpn, expressRoute gsteways, incoming and outgoing traffic 
+			   - filtering based on source/destination ip/port and tcp/ip protocol in use
+
+Web Application Firewall - protects from web based attacks, part of application gateway. no relation with subnets
+------
+
+An instance is deployed in a region so SLA = 99.9% . Deploying an additional instance in a regional pair of that region - SLA remains the same.
+
+-------
+Locks - on resources, not on roles
