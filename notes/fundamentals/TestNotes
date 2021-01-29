@@ -1,6 +1,6 @@
 Test notes
 
-- Azure Knowledge Center - Q&A to common quetions; FAQs; searchable online docs
+- Azure Knowledge Center - Q&A to common questions; FAQs; searchable online docs
 
 - no SLA for free plans
 		
@@ -204,7 +204,7 @@ Multiple failed auth attempts for users in an alphabetical order. Hacker has a l
 Brute Force reconnaissance :
 Multiple auth attempts for a user. Hacker is trying to guess the password
 
-User and Group membership reconnaissance (SAMR) : attackers query domain to map directory structure of important accounts
+User and Group membership reconnaissance (SAMR) l: attackers query domain to map directory structure of important accounts
 
 Identity Theft (pass-the-ticket) : attacker gains access to kerberos ticket on user's computer and uses it to gain access of other computers in the network
 
@@ -226,3 +226,6 @@ An instance is deployed in a region so SLA = 99.9% . Deploying an additional ins
 
 -------
 Locks - on resources, not on roles
+
+12 months free access to azure products
+200 dollar credit, to be used in first 30 days. After use, all services are shutdown till you upgrade. 

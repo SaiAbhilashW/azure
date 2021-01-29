@@ -1,4 +1,23 @@
+* Billing cycle - Monthly
 
+* Cost of some azure regions is less than other but you need to account for data trasfer charge before selecting a region
+
+* Bandwidth = data moving in and out of datacenter
+
+*Inbound data is free, Outbound upto 5GB is free per month
+
+* Azure price Calculator - put together an estimate in the products tab, share it in excel or URL, look saved estimates in the estimate tab
+
+* Azure Advisor - Free tool,analyses and gives reccom. on deleting/downsizing unused VMs and stuff
+
+* Azure Cost Mgmt - Free tool, Shows historical breakdown of which service is spending how much, set budgets, schedule reports
+
+* Total Cost of Ownership - Cost to migrate your existing infra to cloud. You define how many dbs, servers, storage and networking you'll need, and view a report
+
+*Azure Credits - Visual Studio subs get $50 (pro) and $150 (enterprise) per month to try out new stuff
+
+
+----------------------
 Factors affecting cost
 
 - Resource Type 

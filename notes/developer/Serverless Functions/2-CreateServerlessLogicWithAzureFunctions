@@ -1,0 +1,49 @@
+What is serverless?
+Your business logic runs as functions and you don't have to manually provision or scale the infrastructure. Azure manages it and autoscales it. 
+
+What is Azure functions?
+Serverless app platform, autoscalable, pay-as-you-use, supports many languages
+
+Benifits of serverless soln
+- avoid over allocation of infra
+- stateless logic, functions are created and destroyed on demand. If state is required, can be stored in a storage device
+- event driven - HTTP request/message added to queue. You specify what is the event and write the code to handle it, don't need to write code to monitor when/how the event comes
+
+Drawbacks of serverless soln
+- Execution time - a function has a timeout of 5 mins, configurable to 10. If It is taking more time - host it on a VM. For HTTP reqs and responses, timeout is 2.5 min
+- However, Durable Functions allow you to orchestrate executions of multiple funtions without any timeout.
+
+- Execution frequency - If the frequency of function to be executed is more i.e. it is executed continuously by multiple clients, better use VM
+1 function app instance is created every 10 secs, for upto 200 instances. Each instance can service multiple concurrent executions, so no set limit on how much tarffic single instance can handle. Different triggers have different scaling requirements, so research is needed
+
+--------------------------------------
+
+Function App and service plans
+
+Choosing a service plan
+1. Consumption service plan : 
+provides autoscaling and bills when your functions are running. Comes with a configurable time period for exection of function, by default 5 min.
+2. App Services plan :
+allows you to avoid timeouts by having your function run on a VM that you provide. So not technically a serverless plan. but a better choice if the function runs continuously and requires more processing power. 
+
+Storage requirements
+the function app must be linked to a storage account so that execution logs, etc can be stored. In case of Consumption service plan, code and config files are also stored here.
+
+Create a function app
+---------------------
+Create a resource -> compute -> function app
+
+- Functions are event driven, so triggers like insert/update in cosmosDB, blob; HTTP req, event grid, queue storage, service bus and timers
+
+- Bindings, you don't write code in your function to connect to data sources and manage conections. Two types of bindings - input and output. App takes data from resources defined in input binding such as a queue and gives writes it to resources defined in o/p bindings e.g. cosmosDB
+
+Bindings can be modified in a simple JSON file
+
+A function app is a way to organize and collectively manage your functions. A function app is comprised of one or more individual functions that are managed together by Azure App Service. All the functions in a function app share the same pricing plan, continuous deployment, and runtime version.
+
+The API can be included in a query string variable named "code", or it can be included in an x-functions-key HTTP header. This is needed to trigger the function
+
+* Make a function app in sandbox and go through the how to units once
+
+Only one trigger per function but more than one inout/output bindings possible
+

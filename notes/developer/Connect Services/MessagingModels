@@ -1,0 +1,102 @@
+Apps communicate with each other using two methods/ways:
+
+1. Messages
+2. Events
+
+Which to use when?
+- Does the sending component expect expect the communication to be processed in a particular way by the destn component?
+- Does the communocation invoke the data/payload that provoked it?
+
+If answer to either of these is a YES -> use Message
+If answer is NO for both -> use Events
+
+* Events don't contain the payload but can contian refernce/info about where the payload is located 
+* Events are based on a pub-sub model, many apps can subscribe to an event. Events don't care what subs do with them
+
+What tech to use?
+For Messages -> Azure Storage Queues, Service Bus
+For Events -> Event hubs, Event grids
+
+
+Example:
+User wants to upload a song she recently recorded to Spotify and wants it stored in her account (1). She also wants to alert her followers about the new song(2), which they can then download and listen(3)
+
+(1) and (3) -> Messages because payload is involved and expectation around how what actions should be taken exist
+(2) -> Event, because users are only being alerted about something, no payload associated
+
+Messages: Choosing between Queue Storage and Service Bus
+--------------------------------------------------------
+
+- Queue Storage -> basic queue, can store millions of messages, uses simple REST to push/pop messages
+- Service Bus Queues -> message broker system intended for Enterprise Apps, based on idea of queue. Ideal for apps which use:
+    multiple communication protocols,
+    have high security,
+    includes both on-cloud and on-premise scenarios
+- Service Bus Topics -> like queues, can have multiple subscribers. Internally use queues -> one queue for each subscription
+
+* Queues increase the reliability of the message exchange because, at times of high demand, messages can simply wait until a destination component is ready to process them.
+* Message delivery guarantee appraoches:
+- At least once delivery -> each message is guaranteed to be delivered to at least one of the components that retrieve messages from the queue
+    Note: Note, however, that in certain circumstances, it is possible that the same message may be delivered more than once. For example, if there are two instances of a web app retrieving messages from a queue, ordinarily each message goes to only one of those instances.
+    However, if one instance takes a long time to process the message, and a time-out expires, the message may be sent to the other instance as well. Your web app code should be designed with this possibility in mind.
+- At most once delivery -> In this approach, each message is not guaranteed to be delivered, and there is a very small chance that it may not arrive. However, unlike At-Least-Once delivery, there is no chance that the message will be delivered twice.
+- FIFO - guarantes that queue will follow FIFO
+* Transactional support -> some closely related messages should all be delivered together or none at all. This group is called as a transaction. e.g. credit card payment success and order confirm message should come together or shouldn't come at all
+
+What to choose when?
+- Azure Service Topics -> if multiple recievers need to be configured for each message
+- Queue Storage :
+    You need an audit trail of all messages that pass through the queue.
+    You expect the queue to exceed 80 GB in size.
+    You want to track progress for processing a message inside of the queue.    
+- Azure Service Topics :
+    You need an At-Most-Once delivery guarantee.
+    You need a FIFO guarantee.
+    You need to group messages into transactions.
+    You want to receive messages without polling the queue.
+    You need to provide a role-based access model to the queues.
+    You need to handle messages larger than 64 KB but less than 256 KB.
+    Your queue size will not grow larger than 80 GB.
+    You would like to be able to publish and consume batches of messages.
+
+
+Events: Choosing between Azure Event Grid or Event Hubs
+-------------------------------------------------------
+
+Event Sources -> Topics -> Event Grid -> Event Subscriptions -> Event Handlers
+
+Event Sources : Create Events and send to Event Grid
+Event Topic : these categorize events into groups. Represented by public endpoints where events are sent
+    system topics - built in topics provided by azure services. You don't see them in your subscriptions because publisher owns them, but you can subscribe to it
+    custom topics - app or 3rd party topics. When you create or are assigned access to a custom topic, you see it in your subscriptions
+Event Subscriptions : defines which events from a topic an event handler wants to receive. Can also filter events based on their subject or type
+Event Handler - any component which can receive events from event grid
+    e.g Azure Functions, Webhooks, Azure logic apps, Microsoft follow
+Why use Event Grid?
+simple
+advanced filtering of events for subscriptions
+Fan out - subscribe to an unlimited number of endpoints to same events and topics
+reliability - retries event delivery for upto 24 hours for each subscription
+Pay-per-event
+
+* Event Grid is designed for 1 event at a time delivery. What to do for a large stream of events?
+Answer is use Event hubs
+
+Event hubs : big data streaming platform, fast, security,
+----------
+Masive number of events to process from a lot of sources very fast? 
+
+Partitions - buffers in which the large no. of icoming events are stored so that even an event isn't missed if the subscriber is busy or down.
+24hrs validity
+Capture - Event Hubs can send all your events immediately to Azure Data Lake or Blob Storage for persistance.
+Authentication - Publishers are authenticated and issued a token. No fraud data can be injected.
+
+* you should choose Event Hubs when :
+    need to authenticate large number of Publishers
+    need to persist the event data in data lake or blob Storage
+    need aggregation/analytics on event stream
+    real time processing of humongous data
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+

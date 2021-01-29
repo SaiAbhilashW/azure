@@ -1,0 +1,70 @@
+Durable Fuctions - implement complex stateful functions in a serverless env
+
+- Extension of Azure functions. 
+- Retain state between function calls
+- We can write event driven code, it can wait ansynchronously for one or more external events and then perform series of tasks in response to them.
+- Chain functions together, and implement common patters like fan-out/fan-in which uses one function to invoke others in parallel and then accumulate results.
+- Orchestrate and coordinate functions and specify the order in which functions should execute.
+- state is managed by us, no need to write our own code to save state information for a long-running function.
+
+Defining restful workflows using a orchestration function. Benefits:
+- Define workflows in code, no need to write JSON desc or use a workflow design tool
+- functions can be called both sync and async, and o/p is stored locally in vars and used in subsequent fn calls
+- Azure checkpoints the progress of a function automatically when the function awaits. Azure may choose to dehydrate the function and save its state while the function waits, to preserve resources and reduce costs. When the function starts running again, Azure will rehydrate it and restore its state.
+
+Types of Functions:
+Client - entry point to create an instane of Durable fn orchestration. These run in response to many event sources like new HTTP req, meesage posted on a message queue , event arriving in an event stream.
+
+Orchestrator - Describes how actions are executed and the order in which they run. write in c# or js
+
+Activity - basic units of work in a durable fn orchestration, contains actual work performed by tasks being orchestrated
+
+Application patterns:
+
+1. Function chaining - 
+O/p of 1 fn becomes i/p of another
+
+f1 -> f2 -> f3
+
+2. Fan in / Fan out - 
+Runs multiple fns in parallel, wait for all of them to finish and final result can be computed through their o/ps
+
+f1 -> {A B C} all running in parallel -> f3
+
+3. Async HTTP API - 
+Enables external clients to coordinate state of long running operations. HTTP call triggers a long running action. Then it can redirect the client to a status endpoint, which the client can check from time to time by calling this endpoint.
+
+start -> |work happening| <- getStatus
+
+4. Monitor - 
+Run a recurring process to look for change in state of somehing, do these until required changes are met
+
+5. Human Interaction - 
+Some approval process where one fn runs and o/p needs to be approved by human, and depending on what human does other fns are run. Some timeouts can be defined for when human isn't responding,a default flow will be executed
+
+f1 -> |Human Approval| -> f2 (if approved) : f3 (if not)
+
+Comparision with Logic Apps
+- Both enable us to create complex orchestrations
+- Durable fn - a serverless compute option to run custom logic whereas Logic Apps - suited for integrating azure services
+- durable fns developed by writing code, logic apps by designing and doing config changes
+
+* check the comparision in unit 2 
+
+* while creating a durable fn in azure portal, you need to install durable fns npm package
+
+* Advanced tools -> KUDU shows the terminal of the server where fn app is deployed
+site folder -> wwwroot folder -> new file called package.json -> Edit the file and write : {name:"nameofyourapp", version:"1.0.0"}
+go to sites/wwwroot in terminal and npm install durable-functions
+
+
+
+Long running tasks using timers:
+
+Timers are used in orchestrator functions
+Timers for delay :
+sending a reminder everyday for 10 days
+Timers for timeout :
+waiting until some activity completes or the timeout expires
+
+

@@ -1,0 +1,68 @@
+What's a webhook?
+- A user defined HTTP callback in response to an event.
+- Common use cases - Some changes made in the wiki page or code pushed to a repo, or some event like orders placed which triggers some post order processes
+
+Azure functions cna act as a web hook. These scenarios 'trigger' the functions and send some data around the event as a payload. Functions process this payloadby using one or more input/output bindings if needed.
+
+* Gollum event allows you to listen for wiki updates, specifically creation and updation of wiki pages.
+
+Setting up a webhook. Two step process :
+
+1. Specify how you want your webhook to behave through Github and what events it should listen to. 
+2. Set up azure functions to recieve and manage the payload recieved from the webhook.
+
+Payload URL:
+
+URL of the server which will recieve webhook POST requests. Each event type has a specific payload format.
+
+Content type:
+
+Webhooks delivered using two different content types:
+- application/json
+- application/x-www-form-urlencoded -> sends JSON payload as a form parameter
+
+Events:
+Lets you select individual events like reponding to an Issue raised in repo, PRs, commits etc
+
+Gollum event header:
+
+Request URL: https://abhiwebhook.azurewebsites.net:
+Request method: POST
+Accept: */*
+content-type: application/json
+X-GitHub-Event: gollum
+...
+
+
+Gollum event payload:
+
+"pages": [
+	{
+		"page_name": the name of the page which was updated,
+		"title": current page title,
+		"action": created/updated,
+		"html_url": html wiki page
+	}
+]
+"repository": {
+	"name": repo name,
+	"owner": owner details,
+	"html_url": .. 
+},
+"sender": {
+	//whose login was used to update the page and all details related to that user
+}
+
+Secure Webhooks payloads with a secret:
+
+A way to secure information and verify that it's Github that is sending the updates
+
+Github uses the secret token to create a hash signature for each payload. This hash signature is passed along with each request in headers as x-hub-signature. 
+
+when you get the request :
+
+if(your secret token + payload == signature in header) then request is from a valid/secure source
+
+signature text starts with sha1=
+
+- use crypto-js library  

@@ -1,0 +1,12 @@
+Deployement:
+
+- Azure Deployment Center in Azure Functions:
+Configurable to be uploaded from github, bitbucket, git local/external repo, dropbox, oneDrive, Azure Devops
+
+- Zip it and upload it with Azure CLI or by using a REST interface 
+
+Unit testing:
+
+Create a new xUnitTests project
+
+Download Microsoft.AspNetCore.Mvc nuGet pacakge -> this creates a mock http environment

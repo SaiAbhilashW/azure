@@ -30,3 +30,7 @@ Resource Locks
 - inherited among the contained resources
 - Two types : Delete - allows read and modifying the resource, cannot be deleted
 			: Read-Only - doesn't allow modification and deletion
+
+RBAC
+
+Access Control (IAM) portal - You can see permissions, who can access what

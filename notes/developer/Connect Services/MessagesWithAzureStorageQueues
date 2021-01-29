@@ -1,0 +1,61 @@
+* Important Case Study
+
+Imagine you work for a major news organization that reports breaking news alerts. Our company employs a worldwide network of journalists that are constantly sending updates through a web portal and a mobile app. A middle tier web service layer then takes those alert updates and publishes them online through several channels.
+
+However, it's been noticed the system is missing alerts when globally significant events occur. This is a huge problem because we're being "scooped" by our competition! You've been hand-selected as the company's top developer to identify and fix the problem.
+
+The middle tier provides plenty of capacity to handle normal loads. However, a look at the server logs revealed the system was overloaded when several journalists tried to upload larger breaking stories at the same time. Some writers complained the portal became unresponsive, and others said they lost their stories altogether. You've spotted a direct correlation between the reported issues and the spike in demand on the middle tier servers.
+
+Clearly, you need a way to handle these unexpected peaks. You don't want to add more instances of the website and middle tier web service because they're expensive and, under normal conditions, redundant. We could dynamically spin up instances, but this takes time and we'd have the issue waiting for new servers to come online.
+
+You can solve this problem by using Azure Queue storage. A storage queue is a high-performance message buffer that can act as a broker between the front-end components (the "producers") and the middle tier (the "consumer").
+
+Our front-end components place a message for each new alert into a queue. The middle tier then retrieves these messages one at a time from the queue for processing. At times of high-demand, the queue may grow in length, but no stories will be lost, and the application will remain responsive. When demand drops back to normal levels, the web service will catch up by working through the queue backlog.
+
+Problems:
+Middle tier getting overworked
+Solution: 
+1. Increase instances of a backend server -> costly and redundant during normal working hours
+2. dynamically spin up instances -> takes time to spin up
+3. pass the load through a queue -> messages can stack up during peak times and can be processed by the server later
+Identify problems with the 3rd solution -> would need to introduce priority messages levels, otherwise important stories would get publish later
+
+
+Pricing of Queue Storage depends on:
+1. queue size
+2. number of operations like add/delete performed
+
+- Single queue can be upto 500TB in size storing millions of messages with a throughput rate of 2000 messages/sec
+- Message in a queue is a byte array of upto 64KB. 
+- No interpretation of message content done by azure. It's on the sender and receiver component to figure that out.
+- Can create a custom message like below, app code will be responsible to process it, azure will just fetch and deliver
+{
+    "Message": {
+        "To": "news@contoso.com",
+        "From": "writer@contoso.com",
+        "Subject": "Support request",
+        "Body": "Send me a photographer!"
+    }
+}
+
+Settings for queues:
+- Choose storage location either close to source/destn or both
+- Data is replicated to multiple servers, two strategies:
+1. LRS (Locally Redundant Strategy) - low cost but data is stored in only a single data centre
+2. GRS (Geo Redundant Strategy)  - high cost but more disaster proof
+
+- Performance Tier
+1. Standard - low cost, uses magnetic drives, good when peak times are fewer and shorter
+2. Premium - uses Solid state drives, choose if queue length sometimes becomes long and you need to minimize the time to access messages.
+
+- Secure transfer -> if sensitive info is passing through the queue, ensures that all connections to the queue are encrypted using Secure Sockets Layer (SSL).
+
+Create a new storage account -> az storage account create --name and other parameters
+
+Identifying a queue:
+To access a queue you need 3 informations:
+1. Storage account name
+2. Queue name
+3. Authorization token
+
+unique identifier for a queue -> storage account name + queue name

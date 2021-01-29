@@ -1,0 +1,20 @@
+Can store upto 32TB of data in virtual disks
+
+Should store data in cloud because of high availibility, replication of data, encryption, etc
+
+Types of data 
+
+Structured (tables, SQL), SemiStructured (NoSql), Unstructured (anything like json, video, logs etc)
+
+Services : 
+- Azure SQL DB - database as a service
+- Cosmos DB - Used to store schema less data
+- Blob Storage - unstructed data, file dumps videos etc
+- Azure Data Lake Storage - large repo storing both structured and unstructured files
+						  - uses hadoop and spark to analyse 
+- Azure Files - Uses SMB (Server Message Block) protocol
+			  - Files can be shared cross OS-platforms
+- Queue Storage - 
+
+
+

@@ -1,0 +1,17 @@
+CloudCore-AzureNetworkingOptions
+
+Region - One or more datacenters within a specified geographic location
+
+Virtual Network - Logically isolated network where resources cn safely talk to other resources in azure, internet and on premesis network. Scoped to a single region
+
+Subnets - divide VNet into more parts, each part would carry a tier of an app
+
+Resiliency - Ability of app to continue working during abnormal nature stuff or hacks
+
+Azure Load Balancer - Balances the load by distributing incoming requests equally among all VMs
+
+Azure Application Gateway - Load balancer designed for HTTP traffic, URL based routing to different VMs
+
+Network Latency - Amount of time it takes for data to travel over the network
+
+Azure Traffic Manager - Gets a request, uses DNS and then redirects it to geographically closest server cluster

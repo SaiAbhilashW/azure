@@ -1,0 +1,78 @@
+Four technologies microsoft provides to implement workflows:
+1. Logic Apps
+2. Micrsoft Power Automate
+3. WebJobs
+4. Azure Functions
+
+Design First Approach : 
+_______________________
+
+Logic Apps
+----------
+
+- draw out complex workflows based on complex business processes
+- Has connectors like twitter connector to send a tweet, outlook connector to send a mail which can be integrated with the apps
+- Custom connector to connect to external REST endpoint
+- Drag and drop / Json based - you can work on either
+- Advanced, workflow code can be included in azure devops and scm systems
+
+Microsoft Power Automate
+------------------------
+
+- create workflows even with no dev exp
+- Four types of flows:
+	- Automated : started by trigger of some event, e.g. arrival of new tweet or upload of a new file
+	- Button : flow starts on a click of a button
+	- Scheduled : executes on a regular basis, like once a week, every 10 hours
+	- Business process : flow which models a process like complaints procedure
+	- Built on Logic Apps under the hood
+
+
+Code First Approach : 
+_______________________
+
+WebJobs and WebJobs SDK
+-----------------------
+
+- Needed when some custom code is required to integrate in workflows.
+- Used to run a program or a script automatically. Two Types : 
+	- Continuous : run continuously, checking if some condition is satisfied for it to run 
+	- Triggered : manual start or scheduled
+- Can write them in many languages and shell script
+- Can also write them using .net, c#. You can use SDK which makes for easy code
+- WebJobs SDK only supports c# and NuGet package manager
+
+Azure Functions
+---------------
+
+- Simple way to run small pieces of code
+- Can be written in many languages
+- You pay only for the time for which function executes
+- Azure autoscales the function in response to demand
+- Write it in portal, or using github/azure devops scm natively
+- Templates available
+	- HTTPTrigger : code executes on some specific HTTP request
+	- TimerTrigger : code executed according to schedule
+	- BlobTrigger : code executes when a new blob is added to azure storage account
+	- CosmosDBTrigger : code executes in response to new or updated documents in NOSQL DB
+
+						Azure WebJobs							Azure Functions
+Supported languages		C# if you are using the WebJobs SDK		C#, Java, JavaScript, PowerShell, etc.
+Automatic scaling		No										Yes
+Development and testing
+ in a browser			No										Yes
+Pay-per-use pricing		No										Yes
+Integration with 
+Logic Apps				No										Yes
+Package managers	NuGet if you are using the WebJobs SDK		Nuget and NPM
+Can be part of an App
+ Service application	Yes										No
+Provides close 
+control of JobHost		Yes										No
+
+Making decisions for code first approach:
+Part of an existing app Service app - WebJob
+If not : 
+Need to customize JobHost - WebJobs
+if not : 
+Azure Functions

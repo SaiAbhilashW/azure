@@ -1,0 +1,75 @@
+Bindings
+--------
+Declarative way of connecting data from within your code
+
+Types:
+Input - connection to data source, function reads data from this source
+Output - connection to data destination, function writes data to this source
+
+Some Triggers, with special type of input bindings can cause the function to execute. E.g. Event Grid notification can be configured as a trigger
+
+Types of supported bindings:
+Blob Storage
+Azure Service Bus Queues
+Azure Cosmos DB
+Azure Event Hubs
+External Files
+External Tables
+HTTP endpoints
+
+Binding props:
+- Name - defines the function param through which we access the data. This is the name of func param which recieves data from source
+
+- Type - type of data/service you want to interact with
+
+- Direction - indicates input/output
+
+- Connection - provides the name of app setting key which contains the connection string. Bindings use connection strings stored in app settings to keep secrets out of function code which makes it more configurable and secure
+
+e.g 
+...
+    {
+      "name": "headshotBlob",
+      "type": "blob",
+      "path": "thumbnail-images/{filename}", //because we are using blob storage
+      "connection": "HeadshotStorageConnection",
+      "direction": "in"
+    },
+ ...
+
+ Input bindings available:
+ Azure Blob storage
+ Auth token
+ Excel table
+ One Drive file
+ O365 webhook handler
+ Orchestration client
+ Azure Cosmos DB
+
+ Output bindings:
+ Azure Queue storage
+ azure blob storage
+ HTTP
+ Azure Service Bus
+ Azure Event Hubs
+ SendGrid
+ Excel Table 
+ Outlook mail manager
+ OneDrive file
+ Microsoft graph webhook subs
+ Azure Cosmos DB
+
+* The Azure Cosmos DB trigger, input and output bindings only work with SQL API and graph API accounts
+
+
+A scenario when you use input/output bindings:
+Add-Bookmarks
+-------------
+
+1. You make an HTTP trigger which accepts req params - id and url in the body
+2. You create 1 input binding with Azure cosmos db where you store existing bookmarks, which are basically id-url pairs
+3. You create 1 output binding with Cosmos Db which can append the new bookmarks
+4. A output HTTP response binding created by default which sends the response to user
+5. In response you can give users a "bookmark already exists" or "bookmark created" message
+6. You can also hook the fucntion up with another o/p binding - Queue Storage
+7. The newly created bookmarks are sent to the queue which can then later be connected to a qr-generation job. This job would access the urls one by one and generate a qr code for it and store it in some kind of storage

@@ -1,0 +1,74 @@
+Run Azure fucntion on a scehdule
+--------------------------------
+
+Timer trigger executes a function at consistent interval. You need to give 2 infos:
+- Timestamp paramter name : identifier to access the trigger in code
+- CRON - expression which sets the interval for timer
+
+CRON Expression:
+string consists of 6 fields representing set of times
+
+{second} {minute} {hour} {day} {week}
+e.g 0*/5 * * * * -> executes the funtion every 5 minutes
+
+* - select every value in the field - every minute of an hour, every hour of a day, every day of a month so on
+
+, - seperate items in a list - "1,3" in days field means Monday and Wednesday
+
+- - specific range - 10-13 in hour field means 10,11,12 and 13th hour
+
+/ - specifies an increment - */10 in minutes field means every 10 minutes
+
+e.g 0 */5 10-12 2,4 * means job will run every 5 minutes between 10am to 12pm on Tuesday and Thursday every week
+
+
+HTTP Triggers
+-------------
+
+Trigger which executes a funciton when it recieves HTTP request
+
+Some capabilities and customizations for HTTP triggers:
+- provides authorized access by supplying keys
+- restrict which http verbs are supported
+- return data back to caller
+- recieve data through a query string or a request body
+- support URL route templates to modify function URL
+
+HTTP Trigger Auth Levels :
+A flag which indicates if an incoming HTTP request needs API key for auth
+
+1. Function
+2. Admin/ Host
+3. Anonymous
+
+Anonymous - no auth needed
+Funtion and Admin - auth key needed. Function key when given in a request can access only that particular function. Admin key when provided can give access to all functions inside the function app.
+
+
+Blob Trigger
+------------
+
+Blob Storage:
+Object storage solution designed to store large amounts of unstructured data
+Great for doing things like:
+- Storing files
+- Serving files
+- Streaming video and audio
+- logging data
+
+Three types of blobs:
+- Block - store text or binary data
+- Append - designed for log files or ones which are updated more frequently
+- Page - made of pages, designed for random read/write operations
+
+Blob Trigger executes the function when file is uploaded or updated in Azure Blob Storage
+
+Blob Trigger creation:
+- need to give path file to monitor to the trigger
+
+e.g samples-workitems/{name}.txt
+
+So the trigger will execute whenever a text file is updated/uploaded in the samples-workitems container
+
+The trigger function recieves the {name} of the file as a parameter to the function
+So if resume.txt is uploaded, function gets name=resume
